@@ -1,0 +1,8 @@
+florian_user:
+    resource: "@florianUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+florian_demo:
+    resource: "@florianDemoBundle/Resources/config/routing.yml"
+    prefix:   /
+

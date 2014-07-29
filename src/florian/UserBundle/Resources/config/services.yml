@@ -1,0 +1,7 @@
+parameters:
+#    florian_user.example.class: florian\UserBundle\Example
+
+services:
+#    florian_user.example:
+#        class: %florian_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
