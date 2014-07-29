@@ -18,6 +18,14 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new florian\DemoBundle\florianDemoBundle(),
             new florian\UserBundle\florianUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Craue\FormFlowBundle\CraueFormFlowBundle(),
+            new Ali\DatatableBundle\AliDatatableBundle(),
+            new MBence\OpenTBSBundle\OpenTBSBundle(),
+            new Fkr\CssURLRewriteBundle\FkrCssURLRewriteBundle(),
+            new Sp\BowerBundle\SpBowerBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

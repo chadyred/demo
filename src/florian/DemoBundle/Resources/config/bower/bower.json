@@ -1,0 +1,9 @@
+{
+    "name": "userBundle",
+    "dependencies": {
+        "jquery": "latest",
+        "bootstrap": "latest",
+        "components-font-awesome":"latest",
+        "jquery-ui":"latest"
+    }
+}

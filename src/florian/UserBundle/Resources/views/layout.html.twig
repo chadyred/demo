@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Connexion{% endblock %}</title>
+        {#        <link rel="shortcut icon" href="{{ asset('bundles/floriandemo/images/favicon.ico') }}" />
+        #}        
+        {% block javascript  %}
+            {% javascripts filter='?uglifyjs'
+                "@jquery_js"
+                "@jquery_ui_js"
+                "@bootstrap_js"
+            %} 
+            <script type="text/javascript" src="{{ asset_url }}"></script> 
+            {% endjavascripts %}
+
+        {% endblock %}	
+        {% stylesheets filter='css_url_rewrite,?yui_css'
+		'@florianUserBundle/Resources/public/css/style.css'
+                '@bootstrap_css'
+		'@font_awesome'
+        %}		
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all"/>
+        {% endstylesheets %}
+    </head> 
+    <body>
+        {% block header %}
+            <div class="navbar navbar-default navbar-top" role="navigation">
+                <div class="navbar-inner navigation">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <div class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav">
+                                        {% if not is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}              
+                                            <li>
+                                                <a id="index" href="#">Bonjour !</a>
+                                            </li>
+                                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out fa-fw"></i>Se déconnecter</a></li>  
+                                            {% else %}
+                                            <li>
+                                                <a href="#">Se connecter</a>
+                                            </li>
+                                            <li><a href="{{ path('login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                                            {% endif %}
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+
+                                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} 
+                                            <li>    
+                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                    <i class="fa fa-user fa-fw"></i>{{app.user.username}} 
+                                                    <span class="fa fa-align-justify"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-pencil fa-fw"></i>Éditer son profil</a></li>
+                                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out fa-fw"></i>Se déconnecter</a></li>
+                                                        {% if is_granted("ROLE_ADMIN") %} 
+                                                        <li class="divider"></li>
+                                                        <li><a href="{{ path('user') }}"><i class="fa fa-level-up fa-fw"></i> Gestion des utilisateurs</a></li>
+                                                        {% endif %}                               
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li><a href="{{ path('login') }}"><i class="fa fa-sign-in fa-fw"></i>{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                                                {% endif %}                                
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div> 
+            </div>
+            <div id="header-wrapper">
+                <div id="alert-info" style="background-color:#0193CC;text-align: center;color:white;font-family: 'Arvo', serif;">
+                    {% for flashMessage in app.session.flashbag.get('notice') %}
+                        {{ flashMessage }}     
+                    {% endfor %}
+                </div>
+            </div>  
+            <script type="text/javascript" >
+                $('.dropdown-toggle').dropdown();
+            </script> 
+        {% endblock %}
+        {% block contenu %}
+        {% endblock %}  
+        {% block fos_user_content %}
+        {% endblock %}
+        {% block footer %}
+            <section class="pageFooter">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <dl>
+                                <dt><a href="#">Développement</a></dt>
+                                <dd><a href="https://getcomposer.org/">Composer</a></dd>
+                                <dd><a href="https://netbeans.org/features/index.html">Netbeans 8.0</a></dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <dl>
+                                <dt><a href="#">Développement</a></dt>
+                                <dd><a href="https://getcomposer.org/">Composer</a></dd>
+                                <dd><a href="https://netbeans.org/features/index.html">Netbeans 8.0</a></dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <dl>
+                                <dt><a href="#">Développement</a></dt>
+                                <dd><a href="https://getcomposer.org/">Composer</a></dd>
+                                <dd><a href="https://netbeans.org/features/index.html">Netbeans 8.0</a></dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <dl>
+                                <dt><a href="http://symfony.com/">Symfony 2</a></dt>
+                                <dd><a href="http://symfony.com/community">Communauté</a></dd>
+                                <dd><a href="http://symfony.com/doc/current/index.html">Tutoriels</a></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <a href="#" class="logo-wrapper" title="Protocole">
+                                <img class="logo"  src="{{ asset('bundles/floriandemo/images/logo.jpg') }}"  alt="floriandemo">
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <dl class="legal">
+                                <dd>Copyright © florian, Inc. All rights reserved.</dd>
+                                <dd><a href="#">Privacy Policy</a></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endblock %}
+    </body>
+</html>

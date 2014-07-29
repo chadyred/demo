@@ -1,12 +1,70 @@
 security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_UTILISATEUR: ROLE_USER
+        ROLE_ADMIN:       ROLE_UTILISATEUR
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
-        in_memory:
-            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username
 
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        default:
+        login:
+            pattern:   ^/(login$|register|resetting)
+            anonymous: true       
+        main:
+            pattern: ^/                     # ^/ = tout ce qui commence par / = tout notre site
             anonymous: ~
+            form_login:                      # On définit notre méthode d'authentification
+                provider:    fos_userbundle  # On lit l'authentification au provider définit plus haut
+                csrf_provider: form.csrf_provider
+                login_path: /login
+                always_use_default_target_path: true
+                default_target_path: /post
+                failure_path:   /login
+                remember_me: true            # On active la possibilité du "Se souvenir de moi" (désactivé par défaut)
+                check_path: /login_check
+                use_forward: false
+            logout:
+                path:   /logout
+                target: /login
+                invalidate_session: false
+            remember_me:
+                key: %secret%        # On définit la clé pour le remember_me (%secret% est un parametre de parameters.ini)
+                path: /
+                lifetime: 5000
+    access_control:
+        # ANONYME
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/error403$, roles: [ ROLE_INACTIVE, ROLE_ACTIVE_CC_PROBLEM, ROLE_ACTIVE_NO_ACCESS,IS_AUTHENTICATED_ANONYMOUSLY,ROLE_UTILISATEUR ] }
+        - { path: ^/js, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/css, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # UTILISATEUR
+        - { path: ^/resetting, role: ROLE_UTILISATEUR }
+        - { path: ^/$, role: ROLE_UTILISATEUR }
+        
+        #- { path: ^/.*, role: IS_AUTHENTICATED_FULLY }
+        # -> end
+        - { path: ^/post, role: ROLE_ADMIN }
+        #  ADMIN       
+        - { path: ^/_sonata_admin, role: ROLE_ADMIN }
+        - { path: ^/admin/, roles: ROLE_ADMIN }
+        - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
+        - { path: ^/admin/$, roles: ROLE_ADMIN }
+        - { path: ^/_wdt, role: ROLE_ADMIN }
+        - { path: ^/_profiler, role: ROLE_ADMIN }
+        - { path: ^/_configurator, role: ROLE_ADMIN }
+        # -> custom access control for the admin area of the URL
+        - { path: ^/admin/login$, role: ROLE_ADMIN }
+        - { path: ^/admin/logout$, role: ROLE_ADMIN }
+        - { path: ^/admin/login-check$, role: ROLE_ADMIN }
+        - { path: ^/user$, role: ROLE_ADMIN }
+        - { path: ^/.*, role: ROLE_ADMIN }
+

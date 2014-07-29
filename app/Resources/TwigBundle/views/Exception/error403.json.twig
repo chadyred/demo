@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Erreur 403 {% endblock %}</title>
+    </head> 
+    <body>
+{% block contenu %}       
+        <section class="post-wrapper-top">
+            <div class="container">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tab-content">
+                    <ul class="breadcrumb">
+                        <li><a href="{{path('protocole')}}">Accueil</a></li>
+                        <li>403 - Accès interdit</li>
+                    </ul>
+                </div>
+            </div>
+        </section><!-- end post-wrapper-top -->
+        <section class="section1">
+            <div class="container clearfix">
+                <div class="content col-lg-12 col-md-12 col-sm-12 clearfix tab-content">
+                    <div class="notfound">
+                        <h1 class="big-title">403 - Accès interdit</h1>
+                        <h4 class="small-title">Vous n'avez pas les droits pour accéder à cette page<br>
+                            <a class="button" href="{{path('login')}}">Revenir à la page d'accueil</a>
+                    </div><!-- end message -->
+                </div><!-- end content -->
+            </div><!-- end container -->
+        </section><!-- end section -->
+{% endblock %}    
+    </body>
+</html>

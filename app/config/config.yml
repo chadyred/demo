@@ -16,6 +16,7 @@ framework:
         engines: ['twig']
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
+    translator:      { fallback: %locale% }
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
@@ -28,42 +29,139 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+   # Services Twig    
+services: 
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: twig.extension }
+  
+    twig.extension.intl:
+       class: Twig_Extensions_Extension_Intl
+       tags:
+           - { name: twig.extension }     
 
 # Assetic Configuration
 assetic:
-    debug:          "%kernel.debug%"
-    use_controller: false
-    bundles:        [ ]
-    #java: /usr/bin/java
-    filters:
-        cssrewrite: ~
-        #closure:
-        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-        #yui_css:
-        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
-
+  debug: "%kernel.debug%"
+  use_controller: true
+  bundles:        [florianUserBundle,florianDemoBundle,FOSUserBundle]
+  java: /usr/bin/java
+  filters:
+    less:
+            node: /usr/bin/node
+            node_paths: [/usr/local/lib/node_modules]
+            apply_to: "\.less$"  
+    cssrewrite: ~
+    uglifyjs :
+            bin: /usr/local/bin/uglifyjs
+    cssembed:
+            jar: %kernel.root_dir%/Resources/java/cssembed-0.4.5.jar
+    yui_css:
+            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar  
+  assets:
+        font_awesome:
+            inputs:
+                - "bundles/floriandemo/components/components-font-awesome/css/font-awesome.min.css"
+            filters:
+                - cssrewrite       
+   
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   "%database_driver%"
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
+      default_connection: demo
+      connections:
+        demo:
+          driver:   %database_driver1%
+          host:     %database_host1%
+          port:     %database_port1%
+          dbname:   %database_name1%
+          user:     %database_user1%
+          password: %database_user1%
+          charset:  UTF8
+          mapping_types:
+                    enum: string
+        user:
+          driver:   %database_driver2%
+          host:     %database_host2%
+          port:     %database_port2%
+          dbname:   %database_name2%
+          user:     %database_user2%
+          password: %database_user2%
+          charset:  UTF8    
+          mapping_types:
+                    enum: string
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: "%kernel.root_dir%/data/data.db3"
         # path:     "%database_path%"
-
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
-
+        default_entity_manager: demo
+        entity_managers:
+          demo:
+            connection: demo
+            mappings:
+              florianDemoBundle : ~
+          user:
+            connection: user
+            mappings:
+              florianUserBundle : ~
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
+    port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
+    
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: florian\UserBundle\Entity\User    
+    model_manager_name: user
+    registration:
+        form:
+            type:               florian_user_registration
+            name:               florian_user_registration_form
+            
+ali_datatable:  
+    all:    ~
+    js:  
+        iDisplayLength: "10"
+        aLengthMenu: "[[5,10, 25, 50, -1], [5,10, 25, 50, 'Tout']]"
+        bJQueryUI: "false"
+        fnPreDrawCallback: |
+            function( e ) {
+                
+            }
+            
+knp_paginator:
+  page_range: 5                      # default page range used in pagination control
+  default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: false    
+  template: 
+     pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+     sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template      
+     
+sp_bower:
+    install_on_warmup: true
+    bundles:
+        florianDemoBundle: ~          
+    assetic:
+        enabled: true
+        nest_dependencies: true
+        filters:
+            css:
+                - ?yui_css
+            js:
+                - ?uglifyjs
+            packages:
+                bootstrap:
+                    css:
+                        - cssembed
+                        - cssrewrite    
+fkr_css_url_rewrite:
+    rewrite_only_if_file_exists: true
+    clear_urls: true

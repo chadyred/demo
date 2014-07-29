@@ -1,0 +1,1 @@
+php app/console generate:doctrine:crud --entity=florianDemoBundle:Post --format=yml --with-write --no-interaction --overwrite

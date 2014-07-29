@@ -1,7 +1,13 @@
 parameters:
 #    florian_user.example.class: florian\UserBundle\Example
 
-services:
 #    florian_user.example:
 #        class: %florian_user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+services:
+    florian_user.registration.form.type:
+        class: florian\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: florian_user_registration }

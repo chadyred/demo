@@ -1,0 +1,11 @@
+{% block contenu %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-md-12  col-lg-12"> 
+            <h1>Oups ! Une erreur est survenue</h1>
+            <h2>Le serveur a retourné une erreur "{{ status_code }} {{ status_text }}".</h2>
+            <h4><a href="{{path('protocole')}}" >Retour à l'accueil</a></h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
