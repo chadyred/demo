@@ -1,8 +1,8 @@
 {%- for action in record_actions %}
 {% if action == "edit" %}
-<a class="btn btn-success btn-xs" role="button" href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity.id }) }}" }}"><i class="fa fa-check"></i></a>
+<a class="btn btn-primary btn-xs" role="button" href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity.id }) }}" }}"><i class="fa fa-pencil"></i></a>
 <a class="btn btn-danger btn-xs" role="button" href="{{ "{{ path('" ~ route_name_prefix ~ "_delete', { 'id': entity.id }) }}" }}"><i class="fa fa-trash-o"></i></a>
 {% elseif action == "show" %}
-<a class="btn btn-primary btn-xs" role="button" href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity.id }) }}" }}"><i class="fa fa-pencil"></i></a>
+<a class="btn btn-success btn-xs" role="button" href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity.id }) }}" }}"><i class="fa fa-check"></i></a>
 {% endif %}
 {%- endfor %}

@@ -1,30 +1,30 @@
 post:
-    path:     /
+    pattern:  /
     defaults: { _controller: "florianDemoBundle:Post:index" }
 
 post_show:
-    path:     /{id}/show
+    pattern:  /{id}/show
     defaults: { _controller: "florianDemoBundle:Post:show" }
 
 post_new:
-    path:     /new
+    pattern:  /new
     defaults: { _controller: "florianDemoBundle:Post:new" }
 
 post_create:
-    path:     /create
+    pattern:  /create
     defaults: { _controller: "florianDemoBundle:Post:create" }
     requirements: { _method: post }
 
 post_edit:
-    path:     /{id}/edit
+    pattern:  /{id}/edit
     defaults: { _controller: "florianDemoBundle:Post:edit" }
 
 post_update:
-    path:     /{id}/update
+    pattern:  /{id}/update
     defaults: { _controller: "florianDemoBundle:Post:update" }
     requirements: { _method: post|put }
 
 post_delete:
-    path:     /{id}/delete
+    pattern:  /{id}/delete
     defaults: { _controller: "florianDemoBundle:Post:delete" }
     requirements: { _method: post|delete }

@@ -32,7 +32,7 @@ class PostControllerTest extends WebTestCase
         // Edit the entity
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
-        $form = $crawler->selectButton('Update')->form(array(
+        $form = $crawler->selectButton('Edit')->form(array(
             'florian_demobundle_post[field_name]'  => 'Foo',
             // ... other fields to fill
         ));

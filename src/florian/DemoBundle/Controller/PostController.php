@@ -14,13 +14,14 @@ use florian\DemoBundle\Form\PostType;
  */
 class PostController extends Controller
 {
-
     /**
      * Lists all Post entities.
      *
      */
     public function indexAction()
     {
+        $session = $this->getRequest()->getSession();
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('florianDemoBundle:Post')->findAll();
@@ -29,12 +30,13 @@ class PostController extends Controller
             'entities' => $entities,
         ));
     }
-    /**
+     /**
      * Creates a new Post entity.
      *
      */
     public function createAction(Request $request)
     {
+        $session = $this->getRequest()->getSession();
         $entity = new Post();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -43,9 +45,13 @@ class PostController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $session->getFlashBag()->add('success', 'L\'entité est enregistrée');
+
 
             return $this->redirect($this->generateUrl('post_show', array('id' => $entity->getId())));
         }
+        $session->getFlashBag()->add('danger', 'Formulaire incorrect');
+
 
         return $this->render('florianDemoBundle:Post:new.html.twig', array(
             'entity' => $entity,
@@ -54,12 +60,12 @@ class PostController extends Controller
     }
 
     /**
-     * Creates a form to create a Post entity.
-     *
-     * @param Post $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
+    * Creates a form to create a Post entity.
+    *
+    * @param Post $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
     private function createCreateForm(Post $entity)
     {
         $form = $this->createForm(new PostType(), $entity, array(
@@ -67,11 +73,10 @@ class PostController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer','attr' => array('class' => 'btn btn-xl')));
 
         return $form;
     }
-
     /**
      * Displays a form to create a new Post entity.
      *
@@ -86,7 +91,6 @@ class PostController extends Controller
             'form'   => $form->createView(),
         ));
     }
-
     /**
      * Finds and displays a Post entity.
      *
@@ -105,10 +109,8 @@ class PostController extends Controller
 
         return $this->render('florianDemoBundle:Post:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
+            'delete_form' => $deleteForm->createView(),        ));
     }
-
     /**
      * Displays a form to edit an existing Post entity.
      *
@@ -147,18 +149,18 @@ class PostController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Modifier','attr' => array('class' => 'btn btn-xl')));
 
         return $form;
     }
-    /**
+/**
      * Edits an existing Post entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
+        $session = $this->getRequest()->getSession();    
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('florianDemoBundle:Post')->find($id);
 
         if (!$entity) {
@@ -171,7 +173,7 @@ class PostController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            $session->getFlashBag()->add('success', 'L\'entité est modifiée');
             return $this->redirect($this->generateUrl('post_edit', array('id' => $id)));
         }
 
@@ -181,12 +183,13 @@ class PostController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-    /**
+/**
      * Deletes a Post entity.
      *
      */
     public function deleteAction(Request $request, $id)
     {
+        $session = $this->getRequest()->getSession();    
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -200,6 +203,8 @@ class PostController extends Controller
 
             $em->remove($entity);
             $em->flush();
+            $session->getFlashBag()->add('warning', 'L\'entité est supprimée');
+
         }
 
         return $this->redirect($this->generateUrl('post'));
@@ -217,7 +222,7 @@ class PostController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('post_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Supprimer','attr' => array('class' => 'btn btn-xl')))
             ->getForm()
         ;
     }

@@ -1,0 +1,147 @@
+{% block form_start %}
+{% spaceless %}
+    {% set method = method|upper %}
+    {% if method in ["GET", "POST"] %}
+        {% set form_method = method %}
+    {% else %}
+        {% set form_method = "POST" %}
+    {% endif %}
+    <form method="{{ form_method|lower }}" class="form-horizontal" 
+         action="{{ action }}"{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+    {% if form_method != method %}
+        <input type="hidden" name="_method" value="{{ method }}" />
+    {% endif %}
+{% endspaceless %}
+{% endblock form_start %}
+
+{% block form_row %}
+{% spaceless %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+
+{% block choice_widget_collapsed %}
+{% spaceless %}
+    {% if required and empty_value is none and not empty_value_in_choices %}
+        {% set required = false %}
+    {% endif %}
+    <div class="col-md-9">
+    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="form-control">
+        {% if empty_value is not none %}
+            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
+        {% endif %}
+        {% if preferred_choices|length > 0 %}
+            {% set options = preferred_choices %}
+            {{ block('choice_widget_options') }}
+            {% if choices|length > 0 and separator is not none %}
+                <option disabled="disabled">{{ separator }}</option>
+            {% endif %}
+        {% endif %}
+        {% set options = choices %}
+        {{ block('choice_widget_options') }}
+    </select>
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_collapsed %}
+        
+        
+{% block form_widget_simple %}
+{% spaceless %}
+    {% set type = type|default('text') %}
+    <div class="col-xs-12 col-md-9">
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} class="form-control"/>
+    </div>
+{% endspaceless %}
+{% endblock form_widget_simple %}
+        
+{% block textarea_widget %}
+{% spaceless %}
+    <div class="col-xs-12 col-md-9">
+        <textarea {{ block('widget_attributes') }} class="form-control">{{ value }}</textarea>
+    </div>
+{% endspaceless %}
+{% endblock textarea_widget %}
+        
+{% block form_label %}
+{% spaceless %}
+    {% if label is not sameas(false) %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' col-md-3 control-label')|trim}) %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_label %}
+        
+{% block button_widget %}
+{% spaceless %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    <div class="col-md-9 col-md-offset-3">
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }} class="btn btn-primary">{{ label|trans({}, translation_domain) }}</button>
+    </div>
+{% endspaceless %}
+{% endblock button_widget %}
+        
+{% block choice_widget_expanded %}
+{% spaceless %}
+    {% set label_attr = label_attr|merge({'class': (label_attr.class|default(''))}) %}
+    {% set label_attr = label_attr|merge({'class': (label_attr.class ~ ' ' ~ (widget_type != '' ? (multiple ? 'checkbox' : 'radio') ~ '-' ~ widget_type : ''))}) %}
+    {% if expanded %}
+        {% set attr = attr|merge({'class': attr.class|default(horizontal_input_wrapper_class)}) %}
+    {% endif %}
+    {% for child in form %}
+        {% if widget_type != 'inline' %}
+        <div class="{{ multiple ? 'checkbox' : 'radio' }}">
+        {% endif %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                {{ form_widget(child, {'horizontal_label_class': horizontal_label_class, 'horizontal_input_wrapper_class': horizontal_input_wrapper_class, 'attr': {'class': attr.widget_class|default('')}}) }}
+                {{ child.vars.label|trans({}, translation_domain) }}
+            </label>
+        {% if widget_type != 'inline' %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {{ block('form_message') }}
+    {% if expanded %}
+    {% endif %}
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
+
+{% block checkbox_widget %}
+{% spaceless %}
+{% if label is not sameas(false) and label is empty %}
+    {% set label = name|humanize %}
+{% endif %}
+{% if form.parent != null and 'choice' not in form.parent.vars.block_prefixes %}
+    <div class="checkbox-inline">
+{% endif %}
+
+{% if form.parent != null and 'choice' not in form.parent.vars.block_prefixes and label_render %}
+    <label {% if not horizontal %}class="checkbox-inline"{% endif %}>
+{% endif %}
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}/>
+{% if form.parent != null and 'choice' not in form.parent.vars.block_prefixes %}
+    {% if label_render and widget_checkbox_label in ['both', 'widget'] %}
+        {{ label|trans({}, translation_domain) }}
+    </label>
+    {% endif %}
+{% endif %}
+{% if form.parent != null and 'choice' not in form.parent.vars.block_prefixes %}
+    </div>
+    {{ block('form_message') }}
+{% endif %}
+{% endspaceless %}
+{% endblock checkbox_widget %}

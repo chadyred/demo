@@ -25,6 +25,8 @@
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $session->getFlashBag()->add('success', 'L\'entité est enregistrée');
+
 
             {% if 'show' in actions -%}
                 return $this->redirect($this->generateUrl('{{ route_name_prefix }}_show', array('id' => $entity->getId())));
@@ -33,6 +35,8 @@
             {%- endif %}
 
         }
+        $session->getFlashBag()->add('danger', 'Formulaire incorrect');
+
 {% endblock method_body %}
 
 {% block method_return %}

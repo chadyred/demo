@@ -1,15 +1,70 @@
-{% extends '::base.html.twig' %}
+{% extends 'florianDemoBundle::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Post creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('post') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block contenu %}
+<section class="pageTop">
+    <div class="container">
+        <div class="row">
+            <ol class="breadcrumb navbreadcrumb">
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Entity</a></li>
+                <li class="active">Création</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<section class="pageMiddle">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-center">Création</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="pageBottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+            {% for flashMessage in app.session.flashbag.get('danger') %}
+                <div class="alert alert-dismissable alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('warning') %}
+                <div class="alert alert-dismissable alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-dismissable alert-success">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                {{ flashMessage }}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="well bs-component col-sm-8 col-sm-offset-2">
+{% form_theme form 'florianDemoBundle:Form:bootstrap-form.html.twig' %}
+{{ form(form) }}
+            </div>
+        </div>
+    </div>  
+</div>
+</section>
+        <section class="pageBottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4">
+                <p  class="text-center">
+                    <a class="btn btn-default" role="button" href="{{ path('post') }}">
+                        Retour à la liste
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
