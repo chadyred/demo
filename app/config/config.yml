@@ -60,6 +60,16 @@ assetic:
     yui_css:
             jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar  
   assets:
+        bootstrap:
+            inputs:
+                - "bundles/floriandemo/components/Flat-UI/bootstrap/css/bootstrap.css"
+            filters:
+                - cssrewrite 
+        flat_ui:
+            inputs:
+                - "bundles/floriandemo/components/Flat-UI/css/flat-ui.css"
+            filters:
+                - cssrewrite      
         font_awesome:
             inputs:
                 - "bundles/floriandemo/components/components-font-awesome/css/font-awesome.min.css"
