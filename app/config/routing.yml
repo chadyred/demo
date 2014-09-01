@@ -5,14 +5,7 @@ florian_user:
 florian_demo:
     resource: "@florianDemoBundle/Resources/config/routing.yml"
     prefix:   /
-
-florianUserBundle_user:
-        resource: "@florianUserBundle/Resources/config/routing/user.yml"
-        prefix:   /user
-        
-florianDemoBundle_post:
-        resource: "@florianDemoBundle/Resources/config/routing/post.yml"
-        prefix:   /post      
+    
 demo:
     path:     /
     defaults: { _controller: "florianDemoBundle:Post:index" }        

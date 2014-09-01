@@ -172,7 +172,8 @@ knp_paginator:
 sp_bower:
     install_on_warmup: true
     bundles:
-        florianDemoBundle: ~          
+        florianDemoBundle: ~  
+    #On applique des filtre à notre package de Bower, uniquement en prod
     assetic:
         enabled: true
         nest_dependencies: true

@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends 'DemoUserBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block fos_user_content %}
     <h1>User creation</h1>
 
     {{ form(form) }}
@@ -12,4 +12,4 @@
         </a>
     </li>
 </ul>
-{% endblock %}
+{% endblock fos_user_content %}

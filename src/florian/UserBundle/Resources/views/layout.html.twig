@@ -3,6 +3,15 @@
 {% block title %}Authentification{% endblock %}
 
 {% block contenu %}    
-        {% block fos_user_content %}
-        {% endblock %}
+        <section class="fos_user_content">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                <div class="flash-{{ type }}">
+                        {{ message }}
+                </div>
+                {% endfor %}
+            {% endfor %}
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </section>
 {% endblock %}  

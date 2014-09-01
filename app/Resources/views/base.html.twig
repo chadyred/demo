@@ -50,10 +50,7 @@
                                 <div class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav navbar-left">
                                         {#Si l'utilisateur est logger par formulaire ou par cookie #}
-                                         {% if (is_granted("IS_AUTHENTICATED_REMEMBER") or is_granted("IS_AUTHENTICATED_FULLY")) == TRUE  %}              
-                                            <li>
-                                                <a id="index" href="#">Authentification réussi</a>
-                                            </li>
+                                         {% if (is_granted("IS_AUTHENTICATED_REMEMBER") or is_granted("IS_AUTHENTICATED_FULLY")) == TRUE  %} 
                                             <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out fa-fw"></i>Se déconnecter</a></li> 
                                             <li>
                                             <a id="demo" href="#"><i class="fa fa-home fa-fw"></i>Demo
@@ -66,8 +63,12 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#"><i class="fa fa-file-text-o fa-fw"></i>Action 1</a></li>
                                                     <li><a href="#"><i class="fa fa-comment-o fa-fw"></i>Action 2</a></li>
+                                                    <li><a href="#"><i class="fa fa-comment-o fa-fw"></i>Action 3</a></li>
                                                 </ul>
-                                            </li>  
+                                            </li>                                                           
+                                            <li>
+                                                <a href="#"><i class="fa fa-comment-o fa-fw"></i>Authentification réussi</a>
+                                            </li>
                                         {% else %}
                                             <li>
                                                 <a href="#">Page d'authentification</a>
@@ -139,7 +140,7 @@
                             <dl class="legal">
                                 <dd>Copyright © florian, Inc. All rights reserved.</dd>
                                 <dd><a href="#">Privacy Policy</a></dd>
-                            </dl>
+                           < /dl>
                         </div>
                     </div>
                 </div>
