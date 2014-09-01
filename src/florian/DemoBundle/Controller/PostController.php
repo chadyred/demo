@@ -22,9 +22,9 @@ class PostController extends Controller
     {
         $session = $this->getRequest()->getSession();
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager('demo');
 
-        $entities = $em->getRepository('florianDemoBundle:Post')->findAll();
+        $entities = $em->getRepository('florianDemoBundle:Post')->findAllLimit();
 
         return $this->render('florianDemoBundle:Post:index.html.twig', array(
             'entities' => $entities,
@@ -42,7 +42,7 @@ class PostController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager('demo');
             $em->persist($entity);
             $em->flush();
             $session->getFlashBag()->add('success', 'L\'entité est enregistrée');
@@ -97,7 +97,7 @@ class PostController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager('demo');
 
         $entity = $em->getRepository('florianDemoBundle:Post')->find($id);
 
@@ -117,7 +117,7 @@ class PostController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager('demo');
 
         $entity = $em->getRepository('florianDemoBundle:Post')->find($id);
 
@@ -160,7 +160,7 @@ class PostController extends Controller
     public function updateAction(Request $request, $id)
     {
         $session = $this->getRequest()->getSession();    
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager('demo');
         $entity = $em->getRepository('florianDemoBundle:Post')->find($id);
 
         if (!$entity) {
@@ -194,7 +194,7 @@ class PostController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager('demo');
             $entity = $em->getRepository('florianDemoBundle:Post')->find($id);
 
             if (!$entity) {

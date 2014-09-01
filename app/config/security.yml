@@ -12,6 +12,9 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         login:
             pattern:   ^/(login$|register|resetting)
             anonymous: true       
@@ -36,6 +39,7 @@ security:
                 key: %secret%        # On définit la clé pour le remember_me (%secret% est un parametre de parameters.ini)
                 path: /
                 lifetime: 5000
+                
     access_control:
         # ANONYME
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -61,6 +65,7 @@ security:
         - { path: ^/_wdt, role: ROLE_ADMIN }
         - { path: ^/_profiler, role: ROLE_ADMIN }
         - { path: ^/_configurator, role: ROLE_ADMIN }
+        
         # -> custom access control for the admin area of the URL
         - { path: ^/admin/login$, role: ROLE_ADMIN }
         - { path: ^/admin/logout$, role: ROLE_ADMIN }

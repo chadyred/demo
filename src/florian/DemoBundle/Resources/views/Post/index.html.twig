@@ -1,88 +1,106 @@
 {% extends 'florianDemoBundle::layout.html.twig' %}
 
 {% block contenu %}
-<section class="pageTop">
-    <div class="container">
-        <div class="row">
-            <ol class="breadcrumb navbreadcrumb">
-                <li><a href="#">Accueil</a></li>
-                <li class="active">Post</li>
-            </ol>
-        </div>
-    </div>
-</section>
-<section class="pageMiddle">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2 class="text-center">Liste de Post</h2>
+    <section class="pageTop">
+        <div class="container">
+            <div class="row">
+                <ol class="breadcrumb navbreadcrumb">
+                    <li><a href="#">Accueil</a></li>
+                    <li class="active">Post</li>
+                </ol>
             </div>
         </div>
-    </div>
-</section>
-<section class="pageBottom">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-            {% for flashMessage in app.session.flashbag.get('danger') %}
-                <div class="alert alert-dismissable alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                {{ flashMessage }}
+    </section>
+    <section class="pageMiddle">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="text-center">Liste de Post</h2>
                 </div>
-            {% endfor %}
-            {% for flashMessage in app.session.flashbag.get('warning') %}
-                <div class="alert alert-dismissable alert-warning">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                {{ flashMessage }}
+                <div class="col-xs-6">
+                    <h2 class="text-center">Liste de Post</h2>
                 </div>
-            {% endfor %}
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                <div class="alert alert-dismissable alert-success">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                {{ flashMessage }}
+                <div class="col-xs-12">
+                    <h2 class="text-center">Liste de Post</h2>
                 </div>
-            {% endfor %}
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-12 col-lg-12 table-responsive">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-{% for entity in entities %}
-                        <tr>                            <td>
-                                <a href="{{ path('post_show', { 'id': entity.id }) }}">
-{{ entity.id }}
-                                </a>
-                            </td>                            <td>
-{{ entity.nom }}
-                            </td>    
-                            <td><a class="btn btn-success btn-xs" role="button" href="{{ path('post_show', { 'id': entity.id }) }}"><i class="fa fa-check"></i></a>
-<a class="btn btn-primary btn-xs" role="button" href="{{ path('post_edit', { 'id': entity.id }) }}"><i class="fa fa-pencil"></i></a>
-<a class="btn btn-danger btn-xs" role="button" href="{{ path('post_delete', { 'id': entity.id }) }}"><i class="fa fa-trash-o"></i></a>
-                            </td>                        </tr>
-{% endfor %}
-                    </tbody>
-                </table>
+    </section>
+    <section class="pageBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    {% for flashMessage in app.session.flashbag.get('danger') %}
+                        <div class="alert alert-dismissable alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                    {% for flashMessage in app.session.flashbag.get('warning') %}
+                        <div class="alert alert-dismissable alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert alert-dismissable alert-success">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12 table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Cp</th>
+                                <th>Ville</th>
+                                <th>Region</th>
+                                <th>Departement</th>
+                                <th>Pays</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                                <tr>                            <td>
+                                        <a href="{{ path('post_show', { 'id': entity.id }) }}">
+                                            {{ entity.id }}
+                                        </a>
+                                    </td>                            <td>
+                                        {{ entity.cp }}
+                                    </td>                            <td>
+                                        {{ entity.ville }}
+                                    </td>                            <td>
+                                        {{ entity.region }}
+                                    </td>                            <td>
+                                        {{ entity.departement }}
+                                    </td>                            <td>
+                                        {{ entity.pays }}
+                                    </td>    
+                                    <td><a class="btn btn-success btn-xs" role="button" href="{{ path('post_show', { 'id': entity.id }) }}"><i class="fa fa-check-square"></i></a>
+                                        <a class="btn btn-primary btn-xs" role="button" href="{{ path('post_edit', { 'id': entity.id }) }}"><i class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-danger btn-xs" role="button" href="{{ path('post_delete', { 'id': entity.id }) }}"><i class="fa fa-trash-o"></i></a>
+                                    </td>                        </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</section>        
-<section class="pageBottom">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <a class="btn btn-default" role="button" href="{{ path('post_new') }}">
-                    Ajouter Post 
-                </a>
+    </section>        
+    <section class="pageBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a class="btn btn-default" role="button" href="{{ path('post_new') }}">
+                        Ajouter Post 
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock %}

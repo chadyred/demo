@@ -6,33 +6,33 @@
         <title>{% block title %}Erreur 404 {% endblock %}</title>
     </head> 
     <body>
-{% block contenu %}       
-        <section class="post-wrapper-top">
-            <div class="container">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tab-content">
-                    <ul class="breadcrumb">
-                        <li><a href="{{path('protocole')}}">Accueil</a></li>
-                        <li>404 - Not Found</li>
-                    </ul>
-                    <h2>404 - NOT FOUND</h2>
+        {% block contenu %}       
+            <section class="post-wrapper-top">
+                <div class="container">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tab-content">
+                        <ul class="breadcrumb">
+                            <li><a href="{{path('protocole')}}">Accueil</a></li>
+                            <li>404 - Not Found</li>
+                        </ul>
+                        <h2>404 - NOT FOUND</h2>
+                    </div>
                 </div>
-            </div>
-        </section><!-- end post-wrapper-top -->
-        <section class="section1">
-            <div class="container clearfix">
-                <div class="content col-lg-12 col-md-12 col-sm-12 clearfix tab-content">
-                    <div class="notfound">
-                        <h1 class="big-title">Êtes-vous perdu ?</h1>
-                        <h4 class="small-title">La page que vous voulez voir n'existe pas.<br>
-                            Peut-être vous pouvez retourner sur la page d'accueil <br>
-                            et voir si vous trouvez ce que vous êtiez en train de chercher.
-                        </h4>
-                        <a class="button" href="#">Revenir à la page d'accueil</a>
-                    </div><!-- end message -->
-                </div><!-- end content -->
-            </div><!-- end container -->
-        </section><!-- end section -->
-{% endblock %}     
+            </section><!-- end post-wrapper-top -->
+            <section class="section1">
+                <div class="container clearfix">
+                    <div class="content col-lg-12 col-md-12 col-sm-12 clearfix tab-content">
+                        <div class="notfound">
+                            <h1 class="big-title">Êtes-vous perdu ?</h1>
+                            <h4 class="small-title">La page que vous voulez voir n'existe pas.<br>
+                                Peut-être vous pouvez retourner sur la page d'accueil <br>
+                                et voir si vous trouvez ce que vous êtiez en train de chercher.
+                            </h4>
+                            <a class="button" href="{{path('login')}}">Revenir à la page d'accueil</a>
+                        </div><!-- end message -->
+                    </div><!-- end content -->
+                </div><!-- end container -->
+            </section><!-- end section -->
+        {% endblock %}     
     </body>
 </html>
 

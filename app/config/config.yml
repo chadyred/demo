@@ -53,6 +53,12 @@ assetic:
             node_paths: [/usr/local/lib/node_modules]
             apply_to: "\.less$"  
     cssrewrite: ~
+    jpegoptim:
+            bin: /usr/bin/jpegoptim
+            max: 70
+#    twig:
+#        functions:
+#            jpegoptim: ~        
     uglifyjs :
             bin: /usr/local/bin/uglifyjs
     cssembed:
@@ -105,13 +111,21 @@ doctrine:
         # e.g. database_path: "%kernel.root_dir%/data/data.db3"
         # path:     "%database_path%"
     orm:
+        #auto_mapping: false
+        #auto_generate_proxy_classes: %kernel.debug%
         default_entity_manager: demo
         entity_managers:
           demo:
+            metadata_cache_driver: apc
+            result_cache_driver: apc
+            query_cache_driver: apc
             connection: demo
             mappings:
               florianDemoBundle : ~
           user:
+            metadata_cache_driver: apc
+            result_cache_driver: apc
+            query_cache_driver: apc  
             connection: user
             mappings:
               florianUserBundle : ~

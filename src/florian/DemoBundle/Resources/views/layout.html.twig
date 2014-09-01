@@ -28,7 +28,7 @@
     <body>
 
         {% block header %}
-            <div class="navbar navbar-default navbar-top" role="navigation">
+            <div class="navbar navbar-inverse navbar-top" role="navigation">
                 <div class="navbar-inner navigation">
                     <div class="container">
                         <div class="row">
@@ -39,7 +39,11 @@
                                     <span class="icon-bar"></span>
                                 </button>
                                 <div class="navbar-header">
-                                    <a href="#"><img class="logo-voreppe img-responsive brand" src="{{ asset('bundles/floriandemo/images/logo.jpg') }}" title="logo" alt="Logo"></a>
+                                    <a href="#">
+                                        {% image '@florianDemoBundle/Resources/public/images/logo.jpg' filter='jpegoptim' output='/images/logo.jpg' %}
+                                        <img class="logo-voreppe img-responsive brand" src="{{ asset_url }}" title="Logo Voreppe" alt="Logo Voreppe"/>
+                                        {% endimage %}
+                                    </a>
                                 </div>
                                 <div class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav navbar-left">
@@ -113,8 +117,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-12 col-xs-12">
-                            <a href="#" class="logo-wrapper" title="Protocole">
-                                <img class="logo-voreppe img-responsive"  src="{{ asset('bundles/floriandemo/images/logo.jpg') }}"  alt="Demo">
+                            <a href="#" class="logo-wrapper" title="Demo">
+                                {% image '@florianDemoBundle/Resources/public/images/logo.jpg' filter='jpegoptim' output='/images/logo.jpg' %}
+                                <img class="logo-voreppe img-responsive brand" src="{{ asset_url }}" title="Logo Voreppe" alt="Logo Voreppe"/>
+                                {% endimage %}
                             </a>
                         </div>
                         <div class="col-md-6 col-sm-12">

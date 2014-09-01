@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class PostRepository extends EntityRepository
 {
+    public function findAllLimit() {
+        $qb = $this->createQueryBuilder('a');
+        $qb->orderby('a.id', 'ASC')->setMaxResults(200);
+        return $qb->getQuery()->getResult();
+    }
+
+    
 }

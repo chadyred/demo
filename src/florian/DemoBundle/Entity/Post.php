@@ -24,9 +24,38 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="cp", type="string", length=255)
      */
-    private $nom;
+    private $cp;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=255)
+     */
+    private $ville;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="region", type="string", length=255)
+     */
+    private $region;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="departement", type="string", length=255)
+     */
+    private $departement;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays", type="string", length=255)
+     */
+    private $pays;
+    
 
 
     /**
@@ -39,26 +68,120 @@ class Post
         return $this->id;
     }
 
+    
+
     /**
-     * Set nom
+     * Set cp
      *
-     * @param string $nom
+     * @param string $cp
      * @return Post
      */
-    public function setNom($nom)
+    public function setCp($cp)
     {
-        $this->nom = $nom;
+        $this->cp = $cp;
 
         return $this;
     }
 
     /**
-     * Get nom
+     * Get cp
      *
      * @return string 
      */
-    public function getNom()
+    public function getCp()
     {
-        return $this->nom;
+        return $this->cp;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     * @return Post
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set region
+     *
+     * @param string $region
+     * @return Post
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return string 
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * Set departement
+     *
+     * @param string $departement
+     * @return Post
+     */
+    public function setDepartement($departement)
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
+    /**
+     * Get departement
+     *
+     * @return string 
+     */
+    public function getDepartement()
+    {
+        return $this->departement;
+    }
+
+    /**
+     * Set pays
+     *
+     * @param string $pays
+     * @return Post
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return string 
+     */
+    public function getPays()
+    {
+        return $this->pays;
     }
 }

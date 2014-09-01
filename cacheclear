@@ -3,6 +3,7 @@ sudo rm -rf app/logs/*
 sudo chmod -R 777 app/cache
 sudo chmod -R 777 app/logs
 php app/console cache:clear
+php app/console cache:clear --env=prod --no-debug --no-warmup
 sudo chmod -R 777 src/florian/DemoBundle/Resources/public/components/cache
 sudo chmod -R 777 app/cache
 sudo chmod -R 777 app/logs
