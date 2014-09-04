@@ -1,0 +1,37 @@
+{# empty Twig template #}
+{% extends "florianBlogBundle::layout.html.twig" %}
+{% block title %}Blog{% endblock %}
+
+{% block corps_blog %}
+    <div id="news">
+        
+             {# On affiche tous les messages flash dont le nom est « info » #}
+        
+            {% for message in app.session.flashbag.get('info') %}
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">x</span></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+              {#pour chaque article recent je vais inclure le contenu des articles. #}
+              {#On pourra gérer cela par la suite. ATTENTION : bien vérifié que dans notre inclusion la variable article est bien utilisée.#}
+              {% for article in articlesRecent %}
+                  {% include 'florianBlogBundle:Blog:article.html.twig' with {'accueil' : true} %}
+              {% else %}
+                  Pas encore d'article !
+              {% endfor %}
+          {# Ici j'aurai les lien de mes différent page #}
+          {# boucle 'for' qui se définit comme en python : for monTerme in range(1, nmbreDeTerme)
+          {# va créer un tableau de valeur dans un intervalle dont on récupéree l'indice 'monterme' qui sera la valeur de l'indice
+          {# d'une instance du tableau crée par le range() pour réaliser notre pagination qui ira de 1 jusqu'à nombrePage#}
+          <ul>
+              {% for unePage in range(1, nombrePage) %}
+                  <li>
+                      <a href="{{ path('florian_blog_accueil', { 'page' : unePage } ) }}">
+                          {{ unePage }}
+                      </a>
+                  </li>
+              {% endfor %}
+          </ul>
+      </div>
+{% endblock corps_blog %} 

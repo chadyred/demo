@@ -1,0 +1,18 @@
+parameters:
+#    florian_blog.example.class: florian\BlogBundle\Example
+
+services:
+#    florian_blog.example:
+#        class: %florian_blog.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    florian_blog.ckeditor:
+        class: florian\BlogBundle\Form\Type\CkeditorType
+        tags:
+            - { name: form.type, alias: ckeditor }   
+            
+    form.type.article:
+        class: florian\BlogBundle\Form\ArticleType
+        arguments: ["@security.context"]
+        tags:
+            - { name: form.type, alias: florian_blogbundle_article }

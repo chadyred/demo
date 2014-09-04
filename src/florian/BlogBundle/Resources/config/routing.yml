@@ -1,0 +1,30 @@
+florian_blog_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: florianBlogBundle:Default:index }
+   
+# src/sdz/BlogBundle/Resources/config/routing.yml
+florian_blog_accueil:
+    path:   /{page}
+    defaults: { _controller: florianBlogBundle:Blog:index, page: 1 }
+    requirements:
+        page: \d+
+    
+florian_blog_voir_article:
+    path: /article/{slugTitre}
+    defaults: { _controller: florianBlogBundle:Blog:voir }
+
+florian_blog_ajouter:
+    path:      /ajouter
+    defaults: { _controller: florianBlogBundle:Blog:ajouter}
+    
+florian_blog_modifier:
+    path:      /modifier/{slugTitre}
+    defaults: { _controller: florianBlogBundle:Blog:modifier}
+    requirements:
+        id: \d+
+
+florian_blog_supprimer:
+    path:      /supprimer/{slugTitre}
+    defaults: { _controller: florianBlogBundle:Blog:supprimer}
+    requirements:
+        id: \d+

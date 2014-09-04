@@ -1,0 +1,28 @@
+{# empty Twig template #}
+{% extends "::base.html.twig" %}
+{% block title %}Blog{% endblock %}
+
+
+{% block contenu %}
+    <div class="container-fluid base">
+        <div class="row">
+            <div class="cols-xs-12">
+                <h3 class="text-center">Le blog</h3>
+            </div>
+        </div>
+        <div class="row">            
+            <div class="navbar-collapse collapse">
+                <div id="menu" class="cols-xs-12">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="{{ path('florian_blog_accueil') }}">Accueil du blog</a></li>
+                        <li><a href="{{ path('florian_blog_ajouter') }}">Ajouter un article</a></li> 
+                    </ul>
+                </div>
+            </div>      
+            <div id="corps_blog" class="span9">
+                {% block corps_blog %}
+                {% endblock corps_blog %}
+            </div>
+        </div>        
+    </div>
+{% endblock contenu %}

@@ -1,0 +1,50 @@
+<?php
+
+namespace florian\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+
+/**
+ * Customer
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="florian\UserBundle\Entity\UserRepository")
+ */
+class User extends BaseUser {
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+   /**
+    * @var articles
+    *
+    * Ici on va créé la relation OneToMany (Many: article to One user)
+    * @ORM\OneToMany(targetEntity="florian\BlogBundle\Entity\Article", mappedBy="user", cascade={"persist", "remove"})
+    */
+    protected $articles;
+
+    public function __construct() {
+        parent::__construct();
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = array('ROLE_UTILISATEUR');
+    }
+
+    public function __toString() {
+        return $this->getLogin();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+}

@@ -1,0 +1,61 @@
+{% set accueil = accueil|default(false) %}
+
+{#Si on est sur l'accueil on met le lien pour voir notre article, sinon on met en gros le titre#}
+
+{% if accueil %}
+
+    <p class="titre">
+        <a href="{{ path('florian_blog_voir_article', { 'slugTitre' : article.getSlugTitre }) }}">
+            <span class="fui-play"></span>qsdqsd
+        </a>
+        {{ article.getTitre }}
+    </p>
+{% else %}
+    <h2>
+        {{ article.getTitre }}
+        <br/>
+        Redigé par {{ article.getUser.getUsername }}
+    </h2>
+{% endif %}
+
+{#Sur l'accueil on affiche pas l'image#}
+{% if accueil == false %}
+    {# On vérifie qu'une image est bien associée à l'article #}
+    {% if article.getImageArticle is not null %}
+        {# On va utiliser notre fonction qui va nous permettre de concaténer le chemin de notre image#}
+        <img src="{{ asset(article.getImageArticle.getWebPath) }}" alt="{{ article.getImageArticle.getAlt }}"/>
+    {% endif %}
+
+
+    <p>
+        {{ article.getContenu|raw }}
+    </p>
+    <div class="navbar-inner navigation">
+        <div class="container">
+            <div class="row"> 
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="{{ path('florian_blog_modifier', {'slugTitre': article.getSlugTitre}) }}" class="btn">
+                            <i class="icon-edit"></i>
+                            Modifier l'article
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('florian_blog_supprimer', {'slugTitre': article.getSlugTitre}) }}" class="btn">
+                            <i class="icon-trash"></i>
+                            Supprimer l'article
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>                   
+
+{% endif %}
+
+
+<br/>
+
+écrit le {{ article.getDateCreation|date('d/m/Y \à g:i:s') }} :
+<br/>
+Modifié le : {{ article.getDateEdition|date('d/m/Y \à g:i:s') }}
