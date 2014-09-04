@@ -20,11 +20,7 @@ florian_blog_ajouter:
 florian_blog_modifier:
     path:      /modifier/{slugTitre}
     defaults: { _controller: florianBlogBundle:Blog:modifier}
-    requirements:
-        id: \d+
 
 florian_blog_supprimer:
     path:      /supprimer/{slugTitre}
     defaults: { _controller: florianBlogBundle:Blog:supprimer}
-    requirements:
-        id: \d+

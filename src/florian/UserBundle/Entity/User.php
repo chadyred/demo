@@ -23,8 +23,10 @@ class User extends BaseUser {
    /**
     * @var articles
     *
-    * Ici on va créé la relation OneToMany (Many: article to One user)
-    * @ORM\OneToMany(targetEntity="florian\BlogBundle\Entity\Article", mappedBy="user", cascade={"persist", "remove"})
+    * Ici on va créé la relation OneToMany (Many: article to One user) : un utilisateur disparait; ses article aussi.
+    * Si un article est supprimé de sa liste, la classe propriétaire sera orpheline, on supprime alors son entité liée
+    * 
+    * @ORM\OneToMany(targetEntity="florian\BlogBundle\Entity\Article", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
     */
     protected $articles;
 

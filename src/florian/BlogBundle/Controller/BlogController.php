@@ -105,11 +105,34 @@ class BlogController extends Controller {
         return $this->render('florianBlogBundle:Blog:modifier.html.twig');
     }
 
-    public function supprimerAction($id) {
-        // Ici, on récupérera l'article correspondant à $id
-        // Ici, on gérera la suppression de l'article en question
+    public function supprimerAction(Article $article) {
 
-        return $this->render('florianBlogBundle:Blog:supprimer.html.twig');
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression d'article contre cette faille
+        $form = $this->createFormBuilder()->getForm();
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                // On supprime l'article
+                $em = $this->getDoctrine()->getManager();
+                $this->getUser()->removeArticle($article);
+                $em->flush();
+
+
+                $this->get('session')->getFlashBag()->add('info', 'Article bien supprimé');
+
+                // Puis on redirige vers l'accueil
+                return $this->redirect($this->generateUrl('florian_blog_accueil'));
+            }
+        }
+
+        // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+        return $this->render('florianBlogBundle:Blog:supprimer.html.twig', array(
+                    'article' => $article, 'form' => $form->createView()
+        ));
     }
 
 }
