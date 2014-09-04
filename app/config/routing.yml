@@ -2,14 +2,14 @@ florian_blog:
     resource: "@florianBlogBundle/Resources/config/routing.yml"
     prefix:   /blog
 
-florian_user:
-    resource: "@florianUserBundle/Resources/config/routing.yml"
-    prefix:   /
+florianUserBundle_user:
+    resource: "@florianUserBundle/Resources/config/routing/user.yml"
+    prefix:   /user
 
-florian_demo:
-    resource: "@florianDemoBundle/Resources/config/routing.yml"
-    prefix:   /
-    
+florianDemoBundle_post:
+    resource: "@florianDemoBundle/Resources/config/routing/post.yml"
+    prefix:   /post
+ 
 demo:
     path:     /
     defaults: { _controller: "florianDemoBundle:Post:index" }        

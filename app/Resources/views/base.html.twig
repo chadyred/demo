@@ -41,21 +41,27 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <div class="navbar-header">
-                                    <a href="#">
-                                        {% image '@florianDemoBundle/Resources/public/images/logo.jpg' filter='jpegoptim' output='/images/logo.jpg' %}
-                                        <img class="logo-voreppe img-responsive brand" src="{{ asset_url }}" title="Logo Voreppe" alt="Logo Voreppe"/>
-                                        {% endimage %}
-                                    </a>
-                                </div>
                                 <div class="navbar-collapse collapse">
+                                    <div class="navbar-header">
+                                        <a href="#">
+                                            {% image '@florianDemoBundle/Resources/public/images/logo.jpg' filter='jpegoptim' output='/images/logo.jpg' %}
+                                            <img class="logo-voreppe img-responsive brand" src="{{ asset_url }}" title="Logo Voreppe" alt="Logo Voreppe"/>
+                                            {% endimage %}
+                                        </a>
+                                    </div>
                                     <ul class="nav navbar-nav navbar-left">
                                         {#Si l'utilisateur est logger par formulaire ou par cookie #}
-                                         {% if (is_granted("IS_AUTHENTICATED_REMEMBER") or is_granted("IS_AUTHENTICATED_FULLY")) == TRUE  %} 
-                                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out fa-fw"></i>Se déconnecter</a></li> 
+                                        {% if (is_granted("IS_AUTHENTICATED_REMEMBER") or is_granted("IS_AUTHENTICATED_FULLY")) == TRUE  %} 
                                             <li>
-                                            <a id="demo" href="#"><i class="fa fa-home fa-fw"></i>Demo
-                                            </a>
+                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                    <span class="fui-user"></span> Bienvenue {{ app.user.username }} !
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out fa-fw"></i>Se déconnecter</a></li>
+                                                    </ul>
+                                            </li>                                            
+                                            <li>
+                                                <a id="demo" href="{{ path('post') }}"><i class="fa fa-home fa-fw"></i>Accueil
+                                                </a>
                                             </li>
                                             <li>    
                                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -69,17 +75,15 @@
                                             </li>   
                                             <li>
                                                 <a href="{{ path('florian_blog_accueil') }}"><i class="fa fa-film fa-fw"></i>
-                                                        Blog
+                                                    Blog
                                                 </a>
-                                            <li>
-                                                <a href="#"><i class="fa fa-comment-o fa-fw"></i>Authentification réussi</a>
                                             </li>
                                         {% else %}
                                             <li>
                                                 <a href="#">Page d'authentification</a>
                                             </li>
                                             <li><a href="{{ path('login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
-                                        {% endif %}
+                                            {% endif %}
                                     </ul>
                                 </div>
                             </div>
@@ -147,7 +151,7 @@
                             <dl class="legal">
                                 <dd>Copyright © florian, Inc. All rights reserved.</dd>
                                 <dd><a href="#">Privacy Policy</a></dd>
-                           < /dl>
+                                < /dl>
                         </div>
                     </div>
                 </div>
