@@ -57,6 +57,7 @@ security:
         #- { path: ^/.*, role: IS_AUTHENTICATED_FULLY }
         # -> end
         - { path: ^/post, role: ROLE_ADMIN }
+        - { path: ^/blog, role: ROLE_ADMIN }
         #  ADMIN       
         - { path: ^/_sonata_admin, role: ROLE_ADMIN }
         - { path: ^/admin/, roles: ROLE_ADMIN }

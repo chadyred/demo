@@ -1,3 +1,7 @@
+florian_blog:
+    resource: "@florianBlogBundle/Resources/config/routing.yml"
+    prefix:   /blog
+
 florian_user:
     resource: "@florianUserBundle/Resources/config/routing.yml"
     prefix:   /

@@ -19,9 +19,18 @@ class User extends BaseUser {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+   /**
+    * @var articles
+    *
+    * Ici on va créé la relation OneToMany (Many: article to One user)
+    * @ORM\OneToMany(targetEntity="florian\BlogBundle\Entity\Article", mappedBy="user", cascade={"persist", "remove"})
+    */
+    protected $articles;
 
     public function __construct() {
         parent::__construct();
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roles = array('ROLE_UTILISATEUR');
     }
 
@@ -38,4 +47,39 @@ class User extends BaseUser {
         return $this->id;
     }
 
+
+    /**
+     * Add article
+     *
+     * @param \florian\BlogBundle\Entity\Article $article
+     *
+     * @return User
+     */
+    public function addArticle(\florian\BlogBundle\Entity\Article $article)
+    {
+        $this->articles[] = $article;
+        $article->setUser($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove article
+     *
+     * @param \florian\BlogBundle\Entity\Article $article
+     */
+    public function removeArticle(\florian\BlogBundle\Entity\Article $article)
+    {
+        $this->articles->removeElement($article);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
 }

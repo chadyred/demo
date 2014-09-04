@@ -19,11 +19,12 @@
         {% stylesheets filter='css_url_rewrite,yui_css'
 		'@florianDemoBundle/Resources/public/css/style.css'
                 '@florianUserBundle/Resources/public/css/style.css'
+                '@florianBlogBundle/Resources/public/css/style_blog.css'
                 '@bootstrap'
                 '@flat_ui'
 		'@font_awesome'
                 '@bootstrap_css'
-        %}		
+        %}			
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all"/>
         {% endstylesheets %}
     </head> 
@@ -65,7 +66,11 @@
                                                     <li><a href="#"><i class="fa fa-comment-o fa-fw"></i>Action 2</a></li>
                                                     <li><a href="#"><i class="fa fa-comment-o fa-fw"></i>Action 3</a></li>
                                                 </ul>
-                                            </li>                                                           
+                                            </li>   
+                                            <li>
+                                                <a href="{{ path('florian_blog_accueil') }}"><i class="fa fa-film fa-fw"></i>
+                                                        Blog
+                                                </a>
                                             <li>
                                                 <a href="#"><i class="fa fa-comment-o fa-fw"></i>Authentification réussi</a>
                                             </li>
@@ -93,8 +98,10 @@
                 $('.dropdown-toggle').dropdown();
             </script> 
         {% endblock %}
-        {% block contenu %}
-        {% endblock %}  
+        <div id="contenu">
+            {% block contenu %}
+            {% endblock contenu %} 
+        </div>
         {% block footer %}
             <section class="pageFooter">
                 <div class="container">

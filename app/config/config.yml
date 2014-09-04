@@ -44,8 +44,10 @@ services:
 # Assetic Configuration
 assetic:
   debug: "%kernel.debug%"
-  use_controller: true
-  bundles:        [florianUserBundle,florianDemoBundle,FOSUserBundle]
+  #En prod, on ne fournit pas de ressource à la volet : les modifi sont à faire en dev puis une fois valider, on génère les
+  # assets avec assetic:dump --env=prod avant la mise en prod
+  use_controller: false 
+  #bundles :       [florianUserBundle,florianDemoBundle,FOSUserBundle]
   java: /usr/bin/java
   filters:
     less:
@@ -64,7 +66,7 @@ assetic:
     cssembed:
             jar: %kernel.root_dir%/Resources/java/cssembed-0.4.5.jar
     yui_css:
-            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar  
+            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar    
   assets:
         bootstrap:
             inputs:
@@ -82,7 +84,8 @@ assetic:
             filters:
                 - cssrewrite       
    
-# Doctrine Configuration
+   
+# Doctrine Configuration : deux base de données. On récupère les utilisateurs dans une base User, et notre bundle dans demo
 doctrine:
     dbal:
       default_connection: demo
@@ -110,11 +113,12 @@ doctrine:
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: "%kernel.root_dir%/data/data.db3"
         # path:     "%database_path%"
-    orm:
-        #auto_mapping: false
+    orm:        
         #auto_generate_proxy_classes: %kernel.debug%
         default_entity_manager: demo
         entity_managers:
+          #On supprime auto_mapping, car on a deux configuration du ORM et on dispatch les bundle en leur sein.
+          #Ce qui n'est pas pratique c'est que l'on ne peut pas faire OU mais ET. Donc pas les deux en même temps!
           demo:
             metadata_cache_driver: apc
             result_cache_driver: apc
@@ -122,6 +126,10 @@ doctrine:
             connection: demo
             mappings:
               florianDemoBundle : ~
+              florianBlogBundle: ~
+              florianUserBundle : ~
+          #Connexion vers une autre base de donnée non utilisée. celui ci n'est pas utilisé : les namespace ne communique pas 
+          # entre orm. Le premier est celui que j'attaque par défaut (voir la section de configuration de fos_user)
           user:
             metadata_cache_driver: apc
             result_cache_driver: apc
@@ -129,6 +137,7 @@ doctrine:
             connection: user
             mappings:
               florianUserBundle : ~
+              
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -136,12 +145,12 @@ swiftmailer:
     port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    
+ 
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: florian\UserBundle\Entity\User    
-    model_manager_name: user
+    user_class: florian\UserBundle\Entity\User   
+    model_manager_name: demo #utilisation de notre ORM par défaut( voir Using a custom storage layer) 
     registration:
         form:
             type:               florian_user_registration
@@ -186,7 +195,21 @@ sp_bower:
                 bootstrap:
                     css:
                         - cssembed
-                        - cssrewrite    
+                        - cssrewrite 
+# Filtre qui permet va réécrire les url css ainsi :
+#background-image: url(../img/MyImageName.png) => background-image: url(../bundles/bundlename/css/../img/MyImageName.png) 
+#et ceci peut être utilisable : 
+# background-image: url(@BundleNameBundle/img/MyImageName.png)
 fkr_css_url_rewrite:
     rewrite_only_if_file_exists: true
     clear_urls: true
+
+#Permet d'intégrer un datepicker de jqueryUI
+genemu_form:
+    date: ~
+    
+#Stof\DoctrineExtensionBundle Configuration : adresse de type /qsd-qsd-qsd. On choisi notre orm configuré plus haut
+stof_doctrine_extensions:
+    orm:
+        demo:
+            sluggable: true

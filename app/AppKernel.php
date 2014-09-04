@@ -25,7 +25,11 @@ class AppKernel extends Kernel
             new Ali\DatatableBundle\AliDatatableBundle(),
             new MBence\OpenTBSBundle\OpenTBSBundle(),
             new Fkr\CssURLRewriteBundle\FkrCssURLRewriteBundle(),
-            new Sp\BowerBundle\SpBowerBundle()
+            new Sp\BowerBundle\SpBowerBundle(),
+            new florian\BlogBundle\florianBlogBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

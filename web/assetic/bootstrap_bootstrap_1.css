@@ -2367,8 +2367,8 @@ input[type="button"].btn-block {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url('../../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.eot');
-  src: url('../../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.eot');
+  src: url('../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../bundles/floriandemo/components/Flat-UI/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
