@@ -3,6 +3,8 @@
 namespace florian\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use florian\UserBundle\Entity;
+
 //Namespace qui va nous permettre d'appeler la classe Annotation, qui va nous permettre de créer nos slugs
 use Gedmo\Mapping\Annotation as Gedmo;
 

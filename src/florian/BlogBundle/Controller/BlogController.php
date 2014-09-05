@@ -7,6 +7,7 @@ namespace florian\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use florian\BlogBundle\Entity\Article;
 use florian\BlogBundle\Form\ArticleType;
+use florian\BlogBundle\Form\ArticleEditType;
 
 // Nous n'avons plus besoin du use pour l'objet Response
 // use Symfony\Component\HttpFoundation\Response;
@@ -62,7 +63,7 @@ class BlogController extends Controller {
         // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
         $article = new Article();
 
-        $form = $this->createForm($this->get('form.type.article'), $article);
+        $form = $this->createForm(new ArticleType, $article);
 
         $request = $this->get('request');
 
@@ -98,11 +99,42 @@ class BlogController extends Controller {
         return $this->render('florianBlogBundle:Blog:ajouter.html.twig', array('form' => $form->createView()));
     }
 
-    public function modifierAction($id) {
-        // Ici, on récupérera l'article correspondant à $id
-        // Ici, on s'occupera de la création et de la gestion du formulaire
+    public function modifierAction(Article $article) 
+    {
+        
+        $form = $this->createForm(new ArticleEditType(), $article);
+        
+        
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            //On hydrate notre formulaire avec les données que l'on a reçu
+            $form->bind($request);
 
-        return $this->render('florianBlogBundle:Blog:modifier.html.twig');
+            if ($form->isValid()) {
+                //On récupère l'utilistaeur en cours
+                $user = $this->getUser();
+
+                //On persist alors notre entité hydratée par le formulaire
+                $entity_manager = $this->getDoctrine()->getManager();
+
+                //On récupère le service de management des utilisateur du FOSUB
+                $userManager = $this->get('fos_user.user_manager');
+
+
+                //On ajoute notre article à notre utilisateur qui en son sein, va ajouter l'utilisateur à l'article
+                $user->addArticle($article);
+                $userManager->updateUser($user);
+
+                $entity_manager->flush();
+                $this->get('session')->getFlashBag()->add('info', 'Article bien enregistré');
+
+                // Puis on redirige vers la page de visualisation de cet article
+                return $this->redirect($this->generateUrl('florian_blog_voir_article', array('slugTitre' => $article->getSlugTitre())));
+            }            
+        }
+        
+        //Si on a pas d'envoie via la méthode POST, c'est que l'on reçois une requête en GET
+        return $this->render('florianBlogBundle:Blog:modifier.html.twig', array('slugTitre' => $article->getSlugTitre(), 'form' => $form->createView()));
     }
 
     public function supprimerAction(Article $article) {

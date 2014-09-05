@@ -1,0 +1,48 @@
+{# src/florian/BlogBundle/Resources/views/Blog/ajouter.html.twig #}
+
+{% extends "florianBlogBundle::layout.html.twig" %}
+
+{% block corps_blog %}
+
+  <h2>Ajouter un article</h2>
+
+
+  <p>
+     <form action="{{ path('florian_blog_modifier', {'slugTitre': slugTitre} ) }}" method="post" {{ form_enctype(form) }}>
+
+        {# Les erreurs générales du formulaire. #}
+        <p>
+            <i>
+                Auteur : {{ app.user.getUsername }}
+            </i>
+        </p>
+             
+        <p>
+          {# Génération du label. #}
+          {{ form_label(form.titre, "Titre de l'article") }}
+
+          {# Affichage des erreurs pour ce champ précis. #}
+          {{ form_errors(form.titre) }}
+
+          {# Génération de l'input. #}
+          {{ form_widget(form.titre) }}
+        </p>
+
+        {# Idem pour un autre champ. #}
+        <p>
+          {{ form_label(form.contenu, "Contenu de l'article") }}
+          {{ form_errors(form.contenu) }}
+          {{ form_widget(form.contenu) }}
+        </p>
+
+          {# Génération des champs pas encore écrits.
+             Ce serait « date », « auteur » et « publication »,
+             mais aussi le champ CSRF et tous les champs cachés (type « hidden »). #}
+          {{ form_rest(form) }}
+          <div>
+               <input type="submit" value="Modifier l'article !"/>
+          </div>
+     </form>
+  </p>
+
+{% endblock corps_blog %}

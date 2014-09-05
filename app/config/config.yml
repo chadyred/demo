@@ -47,7 +47,7 @@ assetic:
   #En prod, on ne fournit pas de ressource à la volet : les modifi sont à faire en dev puis une fois valider, on génère les
   # assets avec assetic:dump --env=prod avant la mise en prod
   use_controller: false 
-  #bundles :       [florianUserBundle,florianDemoBundle,FOSUserBundle]
+  bundles :       [florianBlogBundle, florianUserBundle,florianDemoBundle,FOSUserBundle]
   java: /usr/bin/java
   filters:
     less:

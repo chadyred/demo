@@ -4,17 +4,10 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 4 sept. 2014, 11:41:07
+    Created on : 29 juil. 2014, 11:34:44
     Author     : florian
 */
 
-#contenu #corps_blog #news .titre a
-{
-    text-decoration: none;
+.logo-voreppe{
+    width:80px;
 }
-
-.img-blog-article
-{
-    height: 1000px !important;
-}
-

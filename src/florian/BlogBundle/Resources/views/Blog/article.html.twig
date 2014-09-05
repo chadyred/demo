@@ -23,7 +23,8 @@
     {# On vérifie qu'une image est bien associée à l'article #}
     {% if article.getImageArticle is not null %}
         {# On va utiliser notre fonction qui va nous permettre de concaténer le chemin de notre image#}
-        <img src="{{ asset(article.getImageArticle.getWebPath) }}" alt="{{ article.getImageArticle.getAlt }}"/>
+        {# Class qui permet d'assurer le responsive de l'image#}
+        <img class="img-responsive img-blog-article" src="{{ asset(article.getImageArticle.getWebPath) }}" alt="{{ article.getImageArticle.getAlt }}"/>
     {% endif %}
 
 

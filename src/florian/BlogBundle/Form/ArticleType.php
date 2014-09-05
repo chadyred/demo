@@ -9,18 +9,12 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class ArticleType extends AbstractType {
 
-    private $securityContext;
-
-    public function __construct(SecurityContext $securityContext) {
-        $this->securityContext = $securityContext;
-    }
 
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $user = $this->securityContext->getToken()->getUser();
 
         $builder
                 ->add('titre', 'text')
@@ -42,7 +36,7 @@ class ArticleType extends AbstractType {
                     )
                 ))
                 ->add('dateCreation', 'genemu_jquerydate', array(
-                    'widget' => 'single_text'
+                    'widget' => 'single_text', 'read_only' => true
                 ))
                 ->add('imageArticle', new ImageArticleType());
     }
