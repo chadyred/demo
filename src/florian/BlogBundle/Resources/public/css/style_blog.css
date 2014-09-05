@@ -8,13 +8,17 @@ and open the template in the editor.
     Author     : florian
 */
 
-#contenu #corps_blog #news .titre a
+#contenu #corps_blog #news .lien_sans_decoration a
 {
     text-decoration: none;
 }
 
 .img-blog-article
 {
-    height: 1000px !important;
+    height: 200px !important;
 }
 
+.titre
+{
+    margin-top: 1.5%;
+}

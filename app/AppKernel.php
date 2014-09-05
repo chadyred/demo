@@ -29,7 +29,11 @@ class AppKernel extends Kernel
             new Sp\BowerBundle\SpBowerBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle()
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new florian\CommentBundle\florianCommentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

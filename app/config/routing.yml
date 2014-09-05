@@ -1,3 +1,8 @@
+florian_comment:
+    resource: "@florianCommentBundle/Resources/config/routing.yml"
+    prefix:   /
+
+   
 florian_blog:
     resource: "@florianBlogBundle/Resources/config/routing.yml"
     prefix:   /blog
@@ -35,11 +40,4 @@ fos_user_change_password:
 login:
   pattern: /login
   defaults: { _controller: florianUserBundle:Security:login }          
-  
-forbidden:
-    pattern: /forbidden
-    defaults: { _controller: florianUserBundle:Index:forbidden }
- 
-error403:
-    pattern: /error403
-    defaults: { _controller: florianUserBundle:Index:error403 }  
+    

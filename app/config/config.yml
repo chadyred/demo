@@ -47,7 +47,7 @@ assetic:
   #En prod, on ne fournit pas de ressource à la volet : les modifi sont à faire en dev puis une fois valider, on génère les
   # assets avec assetic:dump --env=prod avant la mise en prod
   use_controller: false 
-  bundles :       [florianBlogBundle, florianUserBundle,florianDemoBundle,FOSUserBundle]
+  bundles :       [florianBlogBundle, florianUserBundle,florianDemoBundle,FOSUserBundle, FOSCommentBundle, florianCommentBundle]
   java: /usr/bin/java
   filters:
     less:
@@ -125,6 +125,8 @@ doctrine:
             query_cache_driver: apc
             connection: demo
             mappings:
+              FOSCommentBundle: ~
+              florianCommentBundle: ~
               florianDemoBundle : ~
               florianBlogBundle: ~
               florianUserBundle : ~
@@ -213,3 +215,10 @@ stof_doctrine_extensions:
     orm:
         demo:
             sluggable: true
+
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: florian\CommentBundle\Entity\Comment
+            thread: florian\CommentBundle\Entity\Thread

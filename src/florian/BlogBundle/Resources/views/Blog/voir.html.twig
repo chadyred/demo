@@ -4,8 +4,8 @@
 {% block title %}Lecture d'un article{% endblock %}
 
 {% block corps_blog %}
-      {# On affiche tous les messages flash dont le nom est « info » #}
-        
+    {# On affiche tous les messages flash dont le nom est « info » #}
+
     {% for message in app.session.flashbag.get('info') %}
         <div class="alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">x</span></button>
@@ -15,14 +15,14 @@
     {# J'inclus ici mes flash-bag à l'ajout, à la modification de l'article   #}
     {# Rappel : la boucle for vérifie si notre collection est vide ou non, le else n'est alors pas obligatoire #}
     {% for messageAjout in app.session.flashbag.get('AjoutRealise') %}
-       <div class="alert alert-success" role="alert">
+        <div class="alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">x</span></button>
             {{ messageAjout }}
         </div>
     {% endfor %}
 
     {% for messageModification in app.session.flashbag.get('ModificationRéalise') %}
-         <div class="alert alert-success" role="alert">
+        <div class="alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">x</span></button>
             {{ messageModification }}
         </div>
@@ -30,6 +30,12 @@
     {#-----------------#}
     {# J'inclus mon article ici #}
     {#-----------------#}
-     {% include 'florianBlogBundle:Blog:article.html.twig'  %}
+    <section class="contenu">
+        <div class="container">
+            <div class="row">
+                {% include 'florianBlogBundle:Blog:article.html.twig'  %}
+            </div>
+        </div>
+    </section>
 
 {% endblock corps_blog %}

@@ -1,62 +1,78 @@
 {% set accueil = accueil|default(false) %}
 
 {#Si on est sur l'accueil on met le lien pour voir notre article, sinon on met en gros le titre#}
+<article class="col-xs-12">
+    <div class="row">
+        {% if accueil %}
+            <div class="col-xs-12">
+                <h4 class="lien_sans_decoration">
+                    <a href="{{ path('florian_blog_voir_article', { 'slugTitre' : article.getSlugTitre }) }}">
+                        <span class="fui-play"></span>
+                        {{ article.getTitre }}
+                    </a>
+                </h4>
+            </div>
+        {% else %}
+            <div class="col-xs-6">
+                <h2>
+                    {{ article.getTitre }}
+                    <small>
+                        <i>
+                            - Redigé par {{ article.getUser.getUsername }}
+                        </i>
+                    </small>
+                </h2>
+            </div>
+        {% endif %}
+    </div>
 
-{% if accueil %}
+    {#Sur l'accueil on affiche pas l'image#}
+    {% if accueil == false %}
+        {# On vérifie qu'une image est bien associée à l'article #}
+        {% if article.getImageArticle is not null %}
+            {# On va utiliser notre fonction qui va nous permettre de concaténer le chemin de notre image#}
+            {# Class qui permet d'assurer le responsive de l'image#}
+            <img class="img-responsive img-blog-article" src="{{ asset(article.getImageArticle.getWebPath) }}" alt="{{ article.getImageArticle.getAlt }}"/>
+        {% endif %}
 
-    <p class="titre">
-        <a href="{{ path('florian_blog_voir_article', { 'slugTitre' : article.getSlugTitre }) }}">
-            <span class="fui-play"></span>qsdqsd
-        </a>
-        {{ article.getTitre }}
-    </p>
-{% else %}
-    <h2>
-        {{ article.getTitre }}
-        <br/>
-        Redigé par {{ article.getUser.getUsername }}
-    </h2>
-{% endif %}
 
-{#Sur l'accueil on affiche pas l'image#}
-{% if accueil == false %}
-    {# On vérifie qu'une image est bien associée à l'article #}
-    {% if article.getImageArticle is not null %}
-        {# On va utiliser notre fonction qui va nous permettre de concaténer le chemin de notre image#}
-        {# Class qui permet d'assurer le responsive de l'image#}
-        <img class="img-responsive img-blog-article" src="{{ asset(article.getImageArticle.getWebPath) }}" alt="{{ article.getImageArticle.getAlt }}"/>
+        <p>
+            {{ article.getContenu|raw }}
+        </p>
+        <div class="row"> 
+            <div class="col-xs-6 text-center">
+
+                <a href="{{ path('florian_blog_modifier', {'slugTitre': article.getSlugTitre}) }}" class="btn btn-default btn-xs">
+                    <i class="icon-edit"></i>
+                    Modifier l'article
+                </a>
+
+            </div>
+            <div class="col-xs-6  text-center">
+
+                <a href="{{ path('florian_blog_supprimer', {'slugTitre': article.getSlugTitre}) }}"  class="btn btn-default btn-xs">
+                    <i class="icon-trash"></i>
+                    Supprimer l'article
+                </a>
+            </div>
+        </div>            
+
+        <div class="row">
+            <div class="col-xs-12">
+                {% include 'florianCommentBundle:Thread:async.html.twig' with {'id': article.getId() } %}
+            </div>
+        </div>                    
     {% endif %}
 
 
-    <p>
-        {{ article.getContenu|raw }}
-    </p>
-    <div class="navbar-inner navigation">
-        <div class="container">
-            <div class="row"> 
-                <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        <a href="{{ path('florian_blog_modifier', {'slugTitre': article.getSlugTitre}) }}" class="btn">
-                            <i class="icon-edit"></i>
-                            Modifier l'article
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('florian_blog_supprimer', {'slugTitre': article.getSlugTitre}) }}" class="btn">
-                            <i class="icon-trash"></i>
-                            Supprimer l'article
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <div class="row">
+        <div class="col-xs-12">
+            écrit le {{ article.getDateCreation|date('d/m/Y \à g:i:s') }} :
         </div>
-    </div>                   
-
-{% endif %}
-
-
-<br/>
-
-écrit le {{ article.getDateCreation|date('d/m/Y \à g:i:s') }} :
-<br/>
-Modifié le : {{ article.getDateEdition|date('d/m/Y \à g:i:s') }}
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            Modifié le : {{ article.getDateEdition|date('d/m/Y \à g:i:s') }}
+        </div>
+    </div>
+</article>
