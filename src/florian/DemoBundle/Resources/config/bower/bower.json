@@ -5,6 +5,6 @@
         "bootstrap": "latest",
         "components-font-awesome":"latest",
         "jquery-ui":"latest",
-        "Flat-UI":"latest"
+        "flat-ui":"latest"
     }
 }

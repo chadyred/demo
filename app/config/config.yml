@@ -70,12 +70,12 @@ assetic:
   assets:
         bootstrap:
             inputs:
-                - "bundles/floriandemo/components/Flat-UI/bootstrap/css/bootstrap.css"
+                - "bundles/floriandemo/components/flat-ui/bootstrap/css/bootstrap.css"
             filters:
                 - cssrewrite 
         flat_ui:
             inputs:
-                - "bundles/floriandemo/components/Flat-UI/css/flat-ui.css"
+                - "bundles/floriandemo/components/flat-ui/css/flat-ui.css"
             filters:
                 - cssrewrite      
         font_awesome:
